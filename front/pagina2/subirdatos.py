@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import webbrowser
 
 st.set_page_config(page_title="Frontend de Datos", layout="centered")
 
@@ -16,6 +15,16 @@ with col1:
         df = pd.read_excel(archivo)
         st.success("✅ Archivo cargado con éxito")
         st.dataframe(df)
+        st.write("Gráfica de los datos:")
+
+        # Filtrar solo columnas numéricas para la gráfica
+        columnas_numericas = df.select_dtypes(include='number')
+        if not columnas_numericas.empty:
+            st.line_chart(columnas_numericas)
+        else:
+            st.warning("No hay columnas numéricas para graficar.")
+    else:
+        st.write("Por favor, sube un archivo Excel para ver la gráfica.")
 
 # --- Botón Buscar datos ---
 with col2:
