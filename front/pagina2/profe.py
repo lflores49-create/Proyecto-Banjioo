@@ -196,7 +196,7 @@ st.markdown("""
         <p class="info-title">📝 Nota</p>
         <p class="info-text">
             <b>Autores:</b> ChatGPT 🤖 y Leonardo Flores 💼<br>
-            <b>Supervisado por:</b> Andrés Ferro 🧠, gran programador.
+            <b>Supervisado por:</b> Andrés Ferro 🧠, gran programador y teso en finanzas.
         </p>
     </div>
 """, unsafe_allow_html=True)
