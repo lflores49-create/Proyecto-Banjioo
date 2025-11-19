@@ -351,6 +351,8 @@ st.pyplot(fig)
 
 
 
+
+
 # --- RESIDUALES ---
 st.subheader("🔍 Serie de residuales y distribución")
 fig2, ax2 = plt.subplots(figsize=(10, 4))
@@ -385,35 +387,13 @@ else:
     rf_daily_pct *= 100
     Ri = returns[dep_var] - rf_daily_pct
     Rm = returns[market_ticker] - rf_daily_pct
-
-    # 🔹 Convertir a Series si Rm es DataFrame de una columna
-    Rm_series = Rm.squeeze()  # <- esto descomenta y asegura que sea Series
-
-    Xcapm = sm.add_constant(Rm_series)
+    Xcapm = sm.add_constant(Rm)
     capm_model = sm.OLS(Ri, Xcapm).fit()
-
-    
-    beta_capm = float(capm_model.params[market_ticker])
-    alpha_capm = float(capm_model.params['const'])
-
-
-    # extraer beta de forma robusta
-    ticker_idx = [i for i in capm_model.params.index if i.lower() == market_ticker.lower()]
-    if ticker_idx:
-        beta_capm = float(capm_model.params[ticker_idx[0]])
-    else:
-        st.error(f"No se encontró el ticker de mercado {market_ticker} en los parámetros CAPM.")
-        beta_capm = None
-
-    alpha_capm = float(capm_model.params['const'])
-
-    if beta_capm is not None:
-        st.write(f"Beta CAPM estimada = {beta_capm:.4f}")
-        st.write(f"Alpha CAPM (exceso diario) = {alpha_capm:.4e}")
-        st.write(capm_model.summary())
-
-
-   
+    beta_capm = capm_model.params[market_ticker]
+    alpha_capm = capm_model.params['const']
+    st.write(f"Beta CAPM estimada = {beta_capm:.4f}")
+    st.write(f"Alpha CAPM (exceso diario) = {alpha_capm:.4e}")
+    st.write(capm_model.summary())
 
 # --- MÓDULO DE PREDICCIÓN CON INTERVALOS ---
 st.subheader("🔮 Predicción y escenarios (intervalos de confianza)")
