@@ -163,10 +163,6 @@ st.dataframe(df.corr().style.background_gradient(cmap="coolwarm"))
 csv = df.to_csv().encode("utf-8")
 st.download_button("📥 Descargar datos usados", data=csv, file_name="datos_regresion.csv", mime="text/csv", key="download_regresion")
 
-# --- DESCARGAR RESULTADOS ---
-csv = df.to_csv().encode("utf-8")
-st.download_button("📥 Descargar datos usados", data=csv, file_name="datos_regresion.csv", mime="text/csv")
-
 # --- CUADRO INFORMATIVO FINAL (versión con "Nota" arriba) ---
 st.markdown("""
     <style>
